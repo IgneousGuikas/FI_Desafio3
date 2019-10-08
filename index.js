@@ -1,6 +1,13 @@
 const express = require('express');
+const mysql = require('mysql');
 
 var app = express();
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "repolho63",
+  database: "FIDesafio3"
+});
 
 var dados = [];
 
@@ -17,6 +24,7 @@ app.post('/', function(req,res,next) {
     dados.shift();
   }
   dados.push(temp);
+  console.log(dados.length.toString());
   res.json(req.body);
 });
 
