@@ -1,7 +1,39 @@
 <html>
   <head>
+    <script src="https://code.jquery.com/jquery-3.4.1/min.js"></script>
+    <meta charset="UTF-8">
+    <style>
+      p {
+        margin-left: 20%;
+        margin-right: 20%;
+        text-align: justify;
+        text-indent: 30px;
+      }
+      h1 {
+        margin-left: 20%;
+        text-align: left;
+        font-size: 40px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Teste</h1>
+    <div>
+      <p style="text-indent: 0px"><a href="http://18.223.194.18/FIDesafio3"><--Voltar para página inicial</a></p>
+    </div>
+    <h1>Log de Máquinas Cadastradas</h1>
+    <div>
+      <p>
+        A tabela abaixo mostra as informações referentes às máquinas do techlab cadastradas no sistema da aplicação.
+      </p>
+      <p>
+        Para cadastrar uma nova máquina, basta submeter no campo abaixo o endereço TCP/IP pertencente à máquina dentro
+      da rede local do Insper. O endereço será processado pelo servidor e, dentro de alguns instantes, caso tenha sido
+      confirmado, a tabela será atualizada com as informação da máquina nova.
+      </p>
+      <input id="IP"style="margin-left: 20%;" type="text" placeholder="000.000.000.000" pattern="000.000.000.000" maxlength="15">
+      <p>
+        Para deletar uma das máquinas cadastradas, submeta abaixo o índice da respectiva máquina na tabela.
+      </p>
+    </div>
   </body>
 </html>
