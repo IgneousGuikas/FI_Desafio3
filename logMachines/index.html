@@ -14,6 +14,38 @@
         text-align: left;
         font-size: 40px;
       }
+      .grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+        margin-left: 30%;
+        margin-right: 30%;
+      }
+      .grid-item {
+        text-align: center;
+      }
+      input {
+        text-align: center;
+      }
+      table, th {
+        border: 2px solid black;
+      }
+      table {
+        width: 98%;
+        margin-left: 1%;
+        border-collapse: collapse;
+      }
+      td, th {
+        padding: 7px;
+      }
+      tr, td {
+        border: 1px solid #444444;
+      }
+      tr:nth-child(odd) {
+        background-color: #DDDDDD;
+      }
+      tr:nth-child(1) {
+        background-color: #BBBBBB;
+      }
     </style>
   </head>
   <body>
@@ -30,10 +62,38 @@
       da rede local do Insper. O endereço será processado pelo servidor e, dentro de alguns instantes, caso tenha sido
       confirmado, a tabela será atualizada com as informação da máquina nova.
       </p>
-      <input id="IP"style="margin-left: 20%;" type="text" placeholder="000.000.000.000" pattern="000.000.000.000" maxlength="15">
+    </div>
+    <div class="grid-container">
+        <div class="grid-item"><input id="IP" type="text" placeholder="000.000.000.000" maxlength="15"/></div>
+        <div class="grid-item"><input id="add" type="button" value="Adicionar"/></div>
+    </div>
+    <div>
       <p>
         Para deletar uma das máquinas cadastradas, submeta abaixo o índice da respectiva máquina na tabela.
       </p>
+    </div>
+    <div class="grid-container">
+      <div class="grid-item"><input id="idx" type="number" min="0" step="1" value="0"/></div>
+      <div class="grid-item"><input id="del" type="button" value="Deletar"/></div>
+    </div>
+    <div style="margin-top: 20px">
+      <table id="machines">
+        <tr>
+          <th>Índice</th>
+          <th>IP</th>
+          <th>MAX_AXIS</th>
+        </tr>
+        <tr>
+          <td>Teste</td>
+          <td>Teste</td>
+          <td>Teste</td>
+        </tr>
+        <tr>
+          <td>Teste</td>
+          <td>Teste</td>
+          <td>Teste</td>
+        </tr>
+      </table>
     </div>
   </body>
 </html>

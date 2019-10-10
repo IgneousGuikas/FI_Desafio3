@@ -14,19 +14,14 @@ var dados = [];
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.post('/', function(req,res,next) {
-  var temp = {
-    date: new Date(Date.now()),
-    dados: JSON.stringify(req.body),
-    request: req.ip + " " + req.method
-  }
-  if(dados.length == 13) {
-    dados.shift();
-  }
-  dados.push(temp);
-  console.log(dados.length.toString());
-  res.json(req.body);
+
+
+app.get('/getIPs', function(req,res,next) {
+  console.log("localhost:3000/getIPs");
+  res.send("");
 });
+
+
 
 app.get('/getData', function(req,res,next) {
   var temp = "";
@@ -39,5 +34,35 @@ app.get('/getData', function(req,res,next) {
   }
   res.send(temp);
 });
+
+
+
+app.post('/updateData/process', function(req,res,next) {
+  console.log("localhost:3000/updateData/process");
+  console.log(JSON.stringify(req.body));
+  res.json(req.body);
+});
+
+app.post('/updateData/alarms', function(req,res,next) {
+  console.log("localhost:3000/updateData/alarms");
+  console.log(JSON.stringify(req.body));
+  res.json(req.body);
+});
+
+app.post('/updateData/activities', function(req,res,next) {
+  console.log("localhost:3000/updateData/activities");
+  console.log(JSON.stringify(req.body));
+  res.json(req.body);
+});
+
+
+
+app.post('/updateMachines/info', function(req,res,next) {
+  console.log("localhost:3000/updateMachines/Info");
+  console.log(JSON.stringify(req.body));
+  res.json(req.body);
+});
+
+
 
 app.listen(3000,()=>console.log("Listening to port 3000"));
