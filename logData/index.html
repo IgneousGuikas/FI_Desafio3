@@ -2,10 +2,81 @@
   <head>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <meta charset="UTF-8">
+    <style>
+      p {
+        margin-left: 20%;
+        margin-right: 20%;
+        text-align: justify;
+        text-indent: 30px;
+      }
+      h1 {
+        text-align: center;
+        font-size: 40px;
+      }
+      table {
+        visibility: hidden;
+        width: 98%;
+        margin-left: 1%;
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+      table, th {
+        border: 2px solid black;
+      }
+      td, th {
+        padding: 7px;
+        text-align: center;
+      }
+      tr, td {
+        border: 1px solid #444444;
+      }
+      tr:nth-child(odd) {
+        background-color: #DDDDDD;
+      }
+      tr:nth-child(1) {
+        background-color: #BBBBBB;
+      }
+    </style>
   </head>
   <body>
-    <h1>Teste</h1>
-    <div></div>
+    <div>
+      <p style="text-indent: 0px"><a href="http://18.223.194.18/FIDesafio3"><--Voltar pada página inicial</a></p>
+    </div>
+    <h1>Relação dos Dados das Máquinas</h1>
+    <div align="center">
+      <label id="holder"></label>
+      <select>
+        <option value="" disabled selected>--Selecione uma opção--</option>
+        <option value="process">Histórico dos processos</option>
+        <option value="alarms">Histórico dos alarmes</option>
+        <option value="activities">Notificações do gateway</option>
+      </select>
+    </div>
+    <div>
+      <table id="processT">
+        <tr>
+          <th>MACHINE</th>
+          <th>DATE</th>
+          <th>MAIN_PROCESS</th>
+          <th>RUNNING_PROCESS</th>
+          <th>RUNNING_SEQUENCE</th>
+        </tr>
+      </table>
+      <table id="alarmsT">
+        <tr>
+          <th>MACHINE</th>
+          <th>DATE</th>
+          <th>ALARM_TYPE</th>
+        </tr>
+      </table>
+      <table id="activitiesT">
+        <tr>
+          <th>MACHINE</th>
+          <th>DATE</th>
+          <th>ACTIVITY</th>
+        </tr>
+      </table>
+    </div>
   </body>
   <script src="http://18.223.194.18/FIDesafio3/logData/index.js"></script>
 </html>
