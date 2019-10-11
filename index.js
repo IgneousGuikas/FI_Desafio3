@@ -9,7 +9,14 @@ var con = mysql.createConnection({
   database: "FIDesafio3"
 });
 
-var dados = [];
+var dados = [{
+  IDX: 0,
+  IP: "10.202.32.12",
+  MAX_AXIS: 4,
+  CNC_TYPE: " 0",
+  MT_TYPE: " T",
+  SERIES: "GEHJ",
+  VERSION: "40.0"}];
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -59,7 +66,15 @@ app.post('/updateData/activities', function(req,res,next) {
 
 app.get('/getMachines', function(req,res,next) {
   console.log("localhost:3000/getMachines");
-  res.send("");
+  var temp = "";
+  var i;
+  for(i = 0; i<dados.length; i++) {
+    if(i != 0) {
+      temp = temp + "SP,SP";
+    }
+    temp = temp + JSON.stringify(dados[i]);
+  }
+  res.send(temp);
 });
 
 

@@ -6,16 +6,21 @@ $(document).ready(function() {
   }).done(function(data) {
 
     var temp = data.split("SP,SP");
+
+    if(temp.indexOf("") == -1) {
+      temp.slice(temp.indexOf(""),1);
+    }
     var i;
-    for(i=0; i<temp.length; i++){
-      var temp2 = "<tr><td>" + temp[i].IDX + "</td>";
-      temp2 = temp2 + "<td>" + temp[i].IP + "</td>";
-      temp2 = temp2 + "<td>" + temp[i].MAX_AXIS + "</td>";
-      temp2 = temp2 + "<td>" + temp[i].CNC_TYPE + "</td>";
-      temp2 = temp2 + "<td>" + temp[i].MT_TYPE + "</td>";
-      temp2 = temp2 + "<td>" + temp[i].SERIES + "</td>";
-      temp2 = temp2 + "<td>" + temp[i].VERSION + "</td></tr>";
-      $("#machines").after(temp2);
+    for(i=0; i<temp.length; i++) {
+      var temp2 = JSON.parse(temp[i]);
+      var temp3 = "<tr><td>" + temp2.IDX + "</td>";
+      temp3 = temp3 + "<td>" + temp2.IP + "</td>";
+      temp3 = temp3 + "<td>" + temp2.MAX_AXIS + "</td>";
+      temp3 = temp3 + "<td>" + temp2.CNC_TYPE + "</td>";
+      temp3 = temp3 + "<td>" + temp2.MT_TYPE + "</td>";
+      temp3 = temp3 + "<td>" + temp2.SERIES + "</td>";
+      temp3 = temp3 + "<td>" + temp2.VERSION + "</td></tr>";
+      $("#machines tr:last").after(temp3);
     }
 
   });
