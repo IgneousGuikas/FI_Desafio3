@@ -57,6 +57,25 @@ app.post('/updateData/activities', function(req,res,next) {
 
 
 
+app.get('/getMachines', function(req,res,next) {
+  console.log("localhost:3000/getMachines");
+  res.send("");
+});
+
+
+
+app.post('/updateMachines/add', function(req,res,next) {
+  console.log("localhost:3000/updateMachines/add");
+  console.log(JSON.stringify(req.body));
+  res.json(req.body);
+});
+
+app.post('/updateMachines/del', function(req,res,next) {
+  console.log("localhost:3000/updateMachines/del");
+  console.log(JSON.stringify(req.body));
+  res.json(req.body);
+});
+
 app.post('/updateMachines/info', function(req,res,next) {
   console.log("localhost:3000/updateMachines/Info");
   console.log(JSON.stringify(req.body));

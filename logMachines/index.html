@@ -1,6 +1,6 @@
 <html>
   <head>
-    <script src="https://code.jquery.com/jquery-3.4.1/min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <meta charset="UTF-8">
     <style>
       p {
@@ -65,7 +65,7 @@
     </div>
     <div class="grid-container">
         <div class="grid-item"><input id="IP" type="text" placeholder="000.000.000.000" maxlength="15"/></div>
-        <div class="grid-item"><input id="add" type="button" value="Adicionar"/></div>
+        <div class="grid-item"><button id="add">Adicionar</button></div>
     </div>
     <div>
       <p>
@@ -74,7 +74,7 @@
     </div>
     <div class="grid-container">
       <div class="grid-item"><input id="idx" type="number" min="0" step="1" value="0"/></div>
-      <div class="grid-item"><input id="del" type="button" value="Deletar"/></div>
+      <div class="grid-item"><button id="del">Deletar</button></div>
     </div>
     <div style="margin-top: 20px">
       <table id="machines">
@@ -82,18 +82,13 @@
           <th>Índice</th>
           <th>IP</th>
           <th>MAX_AXIS</th>
-        </tr>
-        <tr>
-          <td>Teste</td>
-          <td>Teste</td>
-          <td>Teste</td>
-        </tr>
-        <tr>
-          <td>Teste</td>
-          <td>Teste</td>
-          <td>Teste</td>
+          <th>CNC_TYPE</th>
+          <th>MT_TYPE</th>
+          <th>SERIES</th>
+          <th>VERSION</th>
         </tr>
       </table>
     </div>
   </body>
+  <script src="http://18.223.194.18/FIDesafio3/logMachines/index.js"></script>
 </html>

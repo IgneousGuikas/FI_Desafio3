@@ -7,7 +7,23 @@ server{
 	location / {
 		try_files $uri $uri/ =404;
 	}
+
+
+
 	location =/getData {
+		proxy_pass http://localhost:3000;
+	}
+
+
+
+	location =/getMachines {
+		proxy_pass http://localhost:3000;
+	}
+
+	location =/updateMachines/add {
+		proxy_pass http://localhost:3000;
+	}
+	location =/updateMachines/del {
 		proxy_pass http://localhost:3000;
 	}
 }
