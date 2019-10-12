@@ -33,9 +33,8 @@ $(document).ready(function() {
       data: {IP: $("#IP").val()}
     }).done(function(msg) {
       alert(msg);
+      location.reload();
     });
-
-    $("#IP").val("");
 
   });
 

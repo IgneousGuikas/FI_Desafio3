@@ -9,18 +9,10 @@ var con = mysql.createConnection({
   database: "FIDesafio3"
 });
 
-var dados = [{
-  IDX: 0,
-  IP: "10.202.32.12",
-  MAX_AXIS: 4,
-  CNC_TYPE: " 0",
-  MT_TYPE: " T",
-  SERIES: "GEHJ",
-  VERSION: "40.0"}];
-
 con.connect(function(err) {
   if(err) throw err;
 });
+
 
 
 function crd(data_list) {
@@ -149,14 +141,31 @@ app.get('/getMachines', function(req,res,next) {
 
 app.post('/updateMachines/add', function(req,res,next) {
   console.log("localhost:3000/updateMachines/add");
-  console.log(JSON.stringify(req.body));
-  res.json(req.body);
+
+  con.query("INSERT INTO logMachines (IP) values (\"" + req.body.IP + "\")", function(err) {
+    if(err) throw err;
+  });
+
+  res.send("O IP \"" + req.body.IP + "\" foi adicionado com sucesso.");
 });
 
 app.post('/updateMachines/del', function(req,res,next) {
   console.log("localhost:3000/updateMachines/del");
-  console.log(JSON.stringify(req.body));
-  res.json(req.body);
+
+  con.query("SELECT MACHINEID,IP FROM logMachines", function(err,result,fields) {
+    if(err) throw err;
+
+      var i;
+      for(i=0; i<result.length; i++) {
+      }
+
+  });
+
+  con.query("DELETE FROM logMachines WHERE MACHINEID = " + req.body.IDX, function(err) {
+    if(err) throw err;
+  });
+
+  res.send("O IP \"" + machineip + "\" foi removido com sucesso.");
 });
 
 app.post('/updateMachines/info', function(req,res,next) {
