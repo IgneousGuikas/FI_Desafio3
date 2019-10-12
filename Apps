@@ -10,7 +10,13 @@ server{
 
 
 
-	location =/getData {
+	location =/getData/process {
+		proxy_pass http://localhost:3000;
+	}
+	location =/getData/alarms {
+		proxy_pass http://localhost:3000;
+	}
+	location =/getData/activities {
 		proxy_pass http://localhost:3000;
 	}
 

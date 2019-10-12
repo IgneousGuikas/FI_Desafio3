@@ -16,45 +16,86 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `logData`
+-- Table structure for table `logActivities`
 --
 
-DROP TABLE IF EXISTS `logData`;
+DROP TABLE IF EXISTS `logActivities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `logData` (
-  `dataID` int(11) NOT NULL AUTO_INCREMENT,
-  `machineID` int(11) NOT NULL,
-  `spindle_speed` int(11) DEFAULT NULL,
-  `feed_rate` int(11) DEFAULT NULL,
-  `axis_name_1` varchar(30) DEFAULT NULL,
-  `axis_position_1` int(11) DEFAULT NULL,
-  `axis_dec_1` int(11) DEFAULT NULL,
-  `axis_name_2` varchar(30) DEFAULT NULL,
-  `axis_position_2` int(11) DEFAULT NULL,
-  `axis_dec_2` int(11) DEFAULT NULL,
-  `axis_name_3` varchar(30) DEFAULT NULL,
-  `axis_position_3` int(11) DEFAULT NULL,
-  `axis_dec_3` int(11) DEFAULT NULL,
-  `axis_name_4` varchar(30) DEFAULT NULL,
-  `axis_position_4` int(11) DEFAULT NULL,
-  `axis_dec_4` int(11) DEFAULT NULL,
-  `axis_name_5` varchar(30) DEFAULT NULL,
-  `axis_position_5` int(11) DEFAULT NULL,
-  `axis_dec_5` int(11) DEFAULT NULL,
-  PRIMARY KEY (`dataID`),
-  KEY `machineID` (`machineID`),
-  CONSTRAINT `logData_ibfk_1` FOREIGN KEY (`machineID`) REFERENCES `logMachines` (`machineID`)
+CREATE TABLE `logActivities` (
+  `ACTIVITYID` int(11) NOT NULL AUTO_INCREMENT,
+  `MACHINEID` int(11) DEFAULT NULL,
+  `DATE` varchar(255) DEFAULT NULL,
+  `ACTIVITY` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ACTIVITYID`),
+  KEY `MACHINEID` (`MACHINEID`),
+  CONSTRAINT `logActivities_ibfk_1` FOREIGN KEY (`MACHINEID`) REFERENCES `logMachines` (`MACHINEID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `logData`
+-- Dumping data for table `logActivities`
 --
 
-LOCK TABLES `logData` WRITE;
-/*!40000 ALTER TABLE `logData` DISABLE KEYS */;
-/*!40000 ALTER TABLE `logData` ENABLE KEYS */;
+LOCK TABLES `logActivities` WRITE;
+/*!40000 ALTER TABLE `logActivities` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logActivities` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `logDataAlarms`
+--
+
+DROP TABLE IF EXISTS `logDataAlarms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `logDataAlarms` (
+  `ALARMID` int(11) NOT NULL AUTO_INCREMENT,
+  `MACHINEID` int(11) DEFAULT NULL,
+  `DATE` varchar(255) DEFAULT NULL,
+  `ALARM_TYPE` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ALARMID`),
+  KEY `MACHINEID` (`MACHINEID`),
+  CONSTRAINT `logDataAlarms_ibfk_1` FOREIGN KEY (`MACHINEID`) REFERENCES `logMachines` (`MACHINEID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `logDataAlarms`
+--
+
+LOCK TABLES `logDataAlarms` WRITE;
+/*!40000 ALTER TABLE `logDataAlarms` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logDataAlarms` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `logDataProcess`
+--
+
+DROP TABLE IF EXISTS `logDataProcess`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `logDataProcess` (
+  `PROCESSID` int(11) NOT NULL AUTO_INCREMENT,
+  `MACHINEID` int(11) DEFAULT NULL,
+  `DATE` varchar(255) DEFAULT NULL,
+  `MAIN_PROGRAM` int(11) DEFAULT NULL,
+  `RUNNING_PROGRAM` int(11) DEFAULT NULL,
+  `RUNNING_SEQUENCE` int(11) DEFAULT NULL,
+  PRIMARY KEY (`PROCESSID`),
+  KEY `MACHINEID` (`MACHINEID`),
+  CONSTRAINT `logDataProcess_ibfk_1` FOREIGN KEY (`MACHINEID`) REFERENCES `logMachines` (`MACHINEID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `logDataProcess`
+--
+
+LOCK TABLES `logDataProcess` WRITE;
+/*!40000 ALTER TABLE `logDataProcess` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logDataProcess` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -65,12 +106,15 @@ DROP TABLE IF EXISTS `logMachines`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `logMachines` (
-  `machineID` int(11) NOT NULL AUTO_INCREMENT,
-  `IP` varchar(15) NOT NULL,
-  `modelo` varchar(255) DEFAULT NULL,
-  `fabricante` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`machineID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `MACHINEID` int(11) NOT NULL AUTO_INCREMENT,
+  `IP` varchar(16) NOT NULL,
+  `MAX_AXIS` varchar(3) DEFAULT NULL,
+  `CNC_TYPE` varchar(3) DEFAULT NULL,
+  `MT_TYPE` varchar(3) DEFAULT NULL,
+  `SERIES` varchar(5) DEFAULT NULL,
+  `VERSION` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`MACHINEID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,4 +135,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-02 21:35:41
+-- Dump completed on 2019-10-12  3:22:34
