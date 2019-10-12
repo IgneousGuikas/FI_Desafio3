@@ -13,7 +13,7 @@ $(document).ready(function() {
     var i;
     for(i=0; i<temp.length; i++) {
       var temp2 = JSON.parse(temp[i]);
-      var temp3 = "<tr><td>" + temp2.IDX + "</td>";
+      var temp3 = "<tr><td>" + temp2.MACHINEID + "</td>";
       temp3 = temp3 + "<td>" + temp2.IP + "</td>";
       temp3 = temp3 + "<td>" + temp2.MAX_AXIS + "</td>";
       temp3 = temp3 + "<td>" + temp2.CNC_TYPE + "</td>";

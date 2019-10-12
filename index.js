@@ -18,6 +18,11 @@ var dados = [{
   SERIES: "GEHJ",
   VERSION: "40.0"}];
 
+con.connect(function(err) {
+  if(err) throw err;
+});
+
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
@@ -25,7 +30,28 @@ app.use(express.urlencoded({extended: false}));
 
 app.get('/getIPs', function(req,res,next) {
   console.log("localhost:3000/getIPs");
-  res.send("");
+
+  con.query("SELECT * FROM logMachines", function(err,result,fields) {
+    if(err) throw err;
+
+    var IP_list = "";
+    var i;
+    for(i=0; i<result.length; i++) {
+      temp = result[i];
+      IP_list = IP_list + temp.IP;
+      if(temp.MAX_AXIS == null ||
+          temp.CNC_TYPE == null ||
+          temp.MT_TYPE == null ||
+          temp.SERIES == null ||
+          temp.VERSION == null) {
+        IP_list = IP_list + "N";
+      }
+      IP_list = IP_list + ",";
+    }
+    res.send(IP_list);
+
+  });
+
 });
 
 
@@ -66,15 +92,22 @@ app.post('/updateData/activities', function(req,res,next) {
 
 app.get('/getMachines', function(req,res,next) {
   console.log("localhost:3000/getMachines");
-  var temp = "";
-  var i;
-  for(i = 0; i<dados.length; i++) {
-    if(i != 0) {
-      temp = temp + "SP,SP";
+
+  con.query("SELECT * FROM logMachines", function(err,result,fields) {
+    if(err) throw err;
+
+    var data = "";
+    var i;
+    for(i = 0; i<result.length; i++) {
+      if(i != 0) {
+        data = data + "SP,SP";
+      }
+      data = data + JSON.stringify(result[i]);
     }
-    temp = temp + JSON.stringify(dados[i]);
-  }
-  res.send(temp);
+    res.send(data);
+
+  });
+
 });
 
 
@@ -100,3 +133,4 @@ app.post('/updateMachines/info', function(req,res,next) {
 
 
 app.listen(3000,()=>console.log("Listening to port 3000"));
+
