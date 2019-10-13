@@ -30,7 +30,7 @@ $(document).ready(function() {
     $.ajax({
       method: "POST",
       url: "http://18.223.194.18/updateMachines/add",
-      data: {IP: $("#IP").val()}
+      data: {IP: $("#IP_add").val()}
     }).done(function(msg) {
       alert(msg);
       location.reload();
@@ -43,7 +43,7 @@ $(document).ready(function() {
     $.ajax({
       method: "POST",
       url: "http://18.223.194.18/updateMachines/del",
-      data: {IDX: $("#idx").val()}
+      data: {IP: $("#IP_del").val()}
     }).done(function(msg) {
       alert(msg);
       location.reload();
