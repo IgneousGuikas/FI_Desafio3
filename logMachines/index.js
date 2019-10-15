@@ -5,23 +5,17 @@ $(document).ready(function() {
     url: "http://18.223.194.18/getMachines"
   }).done(function(data) {
 
-    var temp = data.split("SP,SP");
-
-    if(temp.indexOf("") == -1) {
-      temp.slice(temp.indexOf(""),1);
-    }
-    var i;
-    for(i=0; i<temp.length; i++) {
-      var temp2 = JSON.parse(temp[i]);
-      var temp3 = "<tr><td>" + temp2.MACHINEID + "</td>";
-      temp3 = temp3 + "<td>" + temp2.IP + "</td>";
-      temp3 = temp3 + "<td>" + temp2.MAX_AXIS + "</td>";
-      temp3 = temp3 + "<td>" + temp2.CNC_TYPE + "</td>";
-      temp3 = temp3 + "<td>" + temp2.MT_TYPE + "</td>";
-      temp3 = temp3 + "<td>" + temp2.SERIES + "</td>";
-      temp3 = temp3 + "<td>" + temp2.VERSION + "</td></tr>";
-      $("#machines tr:last").after(temp3);
-    }
+    var temp = "";
+    data.dados.forEach(function (value) {
+      temp = temp + "<tr><td>" + value.MACHINEID + "</td>";
+      temp = temp + "<td>" + value.IP + "</td>";
+      temp = temp + "<td>" + value.MAX_AXIS + "</td>";
+      temp = temp + "<td>" + value.CNC_TYPE + "</td>";
+      temp = temp + "<td>" + value.MT_TYPE + "</td>";
+      temp = temp + "<td>" + value.SERIES + "</td>";
+      temp = temp + "<td>" + value.VERSION + "</td></tr>";
+    });
+    $("#machines tr:last").after(temp);
 
   });
 

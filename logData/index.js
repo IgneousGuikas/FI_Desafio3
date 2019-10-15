@@ -1,3 +1,24 @@
+function mountTable(data, ts) {
+  var temp = "";
+  data.forEach(function (value) {
+    temp = temp + "<tr><td>" + value.MACHINEID + "</td>";
+    temp = temp + "<td>" + value.DATE + "</td>";
+    if(ts == "process") {
+      temp = temp + "<td>" + value.MAIN_PROGRAM + "</td>";
+      temp = temp + "<td>" + value.RUNNING_PROGRAM + "</td>";
+      temp = temp + "<td>" + value.RUNNING_SEQUENCE + "</td>";
+    } else if(ts == "alarms") {
+      temp = temp + "<td>" + value.ALARM_TYPE + "</td>";
+    } else {
+      temp = temp + "<td>" + value.ACTIVITY + "</td>";
+    }
+    temp = temp + "</tr>";
+  });
+  $("#" + ts + "T tr:last").after(temp);
+}
+
+
+
 $(document).ready(function() {
 
   $("table").css("visibility", "visible");
@@ -19,32 +40,8 @@ $(document).ready(function() {
     $.ajax({
       method: "GET",
       url: "http://18.223.194.18/getData/" + table_selected
-    }).done(function(data) {
-
-      var temp = data.split("SP,SP");
-
-      if(temp.indexOf("") == -1) {
-        temp.slice(temp.indexOf(""),1);
-      }
-
-      var i;
-      for(i=0; i<temp.length; i++) {
-        var temp2 = JSON.parse(temp[i]);
-        var temp3 = "<tr><td>" + temp2.MACHINEID + "</td>";
-        temp3 = temp3 + "<td>" + temp2.DATE + "</td>";
-        if(table_selected == "process") {
-          temp3 = temp3 + "<td>" + temp2.MAIN_PROGRAM + "</td>";
-          temp3 = temp3 + "<td>" + temp2.RUNNING_PROGRAM + "</td>";
-          temp3 = temp3 + "<td>" + temp2.RUNNING_SEQUENCE + "</td>";
-        } else if(table_selected == "alarms") {
-          temp3 = temp3 + "<td>" + temp2.ALARM_TYPE + "</td>";
-        } else {
-          temp3 = temp3 + "<td>" + temp2.ACTIVITY + "</td>";
-        }
-        temp3 = temp3 + "</tr>";
-        $("#" + table_selected + "T tr:last").after(temp3);
-      }
-
+    }).done(function (data) {
+      mountTable(data.dados, table_selected);
     });
 
   });
@@ -59,31 +56,7 @@ $(document).ready(function() {
       method: "GET",
       url: "http://18.223.194.18/getData/" + table_selected
     }).done(function(data) {
-
-      var temp = data.split("SP,SP");
-
-      if(temp.indexOf("") == -1) {
-        temp.slice(temp.indexOf(""),1);
-      }
-
-      var i;
-      for(i=0; i<temp.length; i++) {
-        var temp2 = JSON.parse(temp[i]);
-        var temp3 = "<tr><td>" + temp2.MACHINEID + "</td>";
-        temp3 = temp3 + "<td>" + temp2.DATE + "</td>";
-        if(table_selected == "process") {
-          temp3 = temp3 + "<td>" + temp2.MAIN_PROGRAM + "</td>";
-          temp3 = temp3 + "<td>" + temp2.RUNNING_PROGRAM + "</td>";
-          temp3 = temp3 + "<td>" + temp2.RUNNING_SEQUENCE + "</td>";
-        } else if(table_selected == "alarms") {
-          temp3 = temp3 + "<td>" + temp2.ALARM_TYPE + "</td>";
-        } else {
-          temp3 = temp3 + "<td>" + temp2.ACTIVITY + "</td>";
-        }
-        temp3 = temp3 + "</tr>";
-        $("#" + table_selected + "T tr:last").after(temp3);
-      }
-
+      mountTable(data.dados, table_selected);
     });
 
   });

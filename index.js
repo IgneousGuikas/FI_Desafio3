@@ -1,6 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
-
+const machinesGetroutes = require('./routes/machines/getRoutes.js');
 
 var app = express();
 var con = mysql.createConnection({
@@ -16,61 +16,18 @@ con.connect(function(err) {
 
 
 
-function crd(data_list) {
-  var data = "";
-  var i;
-  for(i=0; i<data_list.length; i++) {
-    if(i != 0) {
-      data = data + "SP,SP";
-    }
-    data = data + JSON.stringify(data_list[i]);
-  }
-  return data;
-}
-
-
-
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-
-
-app.get('/getIPs', function(req,res,next) {
-  console.log("localhost:3000/getIPs");
-
-  con.query("SELECT * FROM logMachines", function(err,result,fields) {
-    if(err) throw err;
-
-    var IP_list = "";
-    var i;
-    for(i=0; i<result.length; i++) {
-      var temp = result[i];
-      IP_list = IP_list + temp.IP;
-      if(temp.MAX_AXIS == null ||
-          temp.CNC_TYPE == null ||
-          temp.MT_TYPE == null ||
-          temp.SERIES == null ||
-          temp.VERSION == null) {
-        IP_list = IP_list + "N";
-      }
-      IP_list = IP_list + ",";
-    }
-    res.send(IP_list);
-
-  });
-
-});
-
-
+app.use(machinesGetroutes);
 
 app.get('/getData/process', function(req,res,next) {
   console.log("localhost:3000/getData/process");
 
   con.query("SELECT * FROM logDataProcess", function(err,result,fields) {
-    if(err) throw err;
+    if(err) res.json({dados: []});
 
-    var data = crd(result);
-    res.send(data);
+    res.json({dados: result});
 
   });
 
@@ -80,10 +37,9 @@ app.get('/getData/alarms', function(req,res,next) {
   console.log("localhost:3000/getData/alarms");
 
   con.query("SELECT * FROM logDataAlarms", function(err,result,fields) {
-    if(err) throw err;
+    if(err) res.json({dados: []});
 
-    var data = crd(result);
-    res.send(data);
+    res.json({dados: result});
 
   });
 
@@ -93,10 +49,9 @@ app.get('/getData/activities', function(req,res,next) {
   console.log("localhost:3000/getData/activities");
 
   con.query("SELECT * FROM logActivities", function(err,result,fields) {
-    if(err) throw err;
+    if(err) res.json({dados: []});
 
-    var data = crd(result);
-    res.send(data);
+    res.json({dados: result});
 
   });
 
@@ -174,21 +129,6 @@ app.post('/updateData/activities', function(req,res,next) {
 
 
 
-app.get('/getMachines', function(req,res,next) {
-  console.log("localhost:3000/getMachines");
-
-  con.query("SELECT * FROM logMachines", function(err,result,fields) {
-    if(err) throw err;
-
-    var data = crd(result);
-    res.send(data);
-
-  });
-
-});
-
-
-
 app.post('/updateMachines/add', function(req,res,next) {
   console.log("localhost:3000/updateMachines/add");
 
@@ -196,12 +136,11 @@ app.post('/updateMachines/add', function(req,res,next) {
     if(err) throw err;
 
     var ip_exist = false;
-    var i;
-    for(i=0; i<result.length; i++) {
-      if(result[i].IP == req.body.IP) {
+    result.forEach(function (value) {
+      if(value.IP == req.body.IP) {
         ip_exist = true;
       }
-    }
+    });
 
     if(ip_exist) {
       res.send("Este IP já existe.");
@@ -227,13 +166,12 @@ app.post('/updateMachines/del', function(req,res,next) {
 
       var ip_exist = false;
       var id_machine;
-      var i;
-      for(i=0; i<result.length; i++) {
-        if(result[i].IP == req.body.IP) {
+      result.forEach(function (value) {
+        if(value.IP == req.body.IP) {
           ip_exist = true;
-          id_machine = result[i].MACHINEID;
+          id_machine = value.MACHINEID;
         }
-      }
+      });
 
       if(ip_exist) {
         con.query("DELETE FROM logDataProcess WHERE MACHINEID = " + id_machine, function(err) {
