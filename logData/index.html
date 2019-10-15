@@ -15,9 +15,9 @@
       }
       .grid-container {
         display: grid;
-        grid-template-columns: auto auto;
-        margin-left: 30%;
-        margin-right: 30%;
+        grid-template-columns: auto auto auto;
+        margin-left: 20%;
+        margin-right: 20%;
       }
       .grid-item {
         text-align: center;
@@ -54,12 +54,17 @@
     <h1>Relação dos Dados das Máquinas</h1>
     <div class="grid-container">
       <div class="grid-item">
-      <select>
-        <option value="" disabled selected>--Selecione uma opção--</option>
-        <option value="process">Histórico dos processos</option>
-        <option value="alarms">Histórico dos alarmes</option>
-        <option value="activities">Notificações do gateway</option>
-      </select>
+        <select id="dataType">
+          <option value="" disabled selected>--Selecione uma opção--</option>
+          <option value="process">Histórico dos processos</option>
+          <option value="alarms">Histórico dos alarmes</option>
+          <option value="activities">Notificações do gateway</option>
+        </select>
+      </div>
+      <div class="grid-item">
+        <select id="machineID">
+          <option value="all" selected>Todas as máquinas</option>
+        </select>
       </div>
       <div class="grid-item"><button id="refresh">Atualizar</button></div>
     </div>

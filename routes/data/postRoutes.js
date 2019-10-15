@@ -11,7 +11,7 @@ router.post('/updateData/process', function(req,res,next) {
   con.query("SELECT MACHINEID FROM logMachines WHERE IP = \"" + req.body.machineIP + "\"", function(err,result,fields) {
     if(err) throw err;
 
-    var date = new.Date();
+    var date = new Date();
 
     var sql = "INSERT INTO logDataProcess (MACHINEID, DATE, MAIN_PROGRAM, RUNNING_PROGRAM, RUNNING_SEQUENCE) VALUES (";
     sql = sql + result[0].MACHINEID + ", ";
@@ -34,7 +34,7 @@ router.post('/updateData/alarms', function(req,res,next) {
   con.query("SELECT MACHINEID FROM logMachines WHERE IP = \"" + req.body.machineIP + "\"", function(err,result,fields) {
     if(err) throw err;
 
-    var date = new.Date();
+    var date = new Date();
 
     var sql = "INSERT INTO logDataAlarms (MACHINEID, DATE, ALARM_TYPE) VALUES (";
     sql = sql + result[0].MACHINEID + ", ";
@@ -55,7 +55,7 @@ router.post('/updateData/activities', function(req,res,next) {
   con.query("SELECT MACHINEID FROM logMachines WHERE IP = \"" + req.body.machineIP + "\"", function(err,result,fields) {
     if(err) throw err;
 
-    var date = new.Date();
+    var date = new Date();
 
     var sql = "INSERT INTO logActivities (MACHINEID, DATE, ACTIVITY) VALUES (";
     sql = sql + result[0].MACHINEID + ", ";

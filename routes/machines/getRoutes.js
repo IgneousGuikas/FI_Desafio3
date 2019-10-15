@@ -1,10 +1,42 @@
 const con = require('../MySQL.js');
 const express = require('express');
 
+
 var router = express.Router();
 
-router.get('/getIPs', function(req,res,next) {
-  console.log("localhost:3000/getIPs");
+
+router.get('/getMachines', function(req,res,next) {
+  console.log("localhost:3000/getMachines");
+
+  con.query("SELECT * FROM logMachines", function(err,result,fields) {
+    if(err) {
+      res.json({dados: []});
+    } else {
+      res.json({dados: result});
+    }
+  });
+
+});
+
+router.get('/getMachines/ID', function(req,res,next) {
+  console.log("localhost:3000/getMachines/ID");
+
+  con.query("SELECT MACHINEID FROM logMachines", function(err,result,fields) {
+    if(err) {
+      res.json({dados: []});
+    } else {
+      var temp = [];
+      result.forEach(function(value) {
+        temp.push(value.MACHINEID);
+      });
+      res.json({dados: temp});
+    }
+  });
+
+});
+
+router.get('/getMachines/IP', function(req,res,next) {
+  console.log("localhost:3000/getMachines/IP");
 
   con.query("SELECT * FROM logMachines", function(err,result,fields) {
     if(err) {
@@ -24,19 +56,6 @@ router.get('/getIPs', function(req,res,next) {
       });
 
       res.send(IP_list);
-    }
-  });
-
-});
-
-router.get('/getMachines', function(req,res,next) {
-  console.log("localhost:3000/getMachines");
-
-  con.query("SELECT * FROM logMachines", function(err,result,fields) {
-    if(err) {
-      res.json({dados: []});
-    } else {
-      res.json({dados: result});
     }
   });
 

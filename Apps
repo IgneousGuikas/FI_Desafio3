@@ -25,6 +25,9 @@ server{
 	location =/getMachines {
 		proxy_pass http://localhost:3000;
 	}
+	location =/getMachines/ID {
+		proxy_pass http://localhost:3000;
+	}
 
 	location =/updateMachines/add {
 		proxy_pass http://localhost:3000;
