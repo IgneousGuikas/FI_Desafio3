@@ -7,23 +7,24 @@ router.get('/getIPs', function(req,res,next) {
   console.log("localhost:3000/getIPs");
 
   con.query("SELECT * FROM logMachines", function(err,result,fields) {
-    if(err) res.send("");
+    if(err) {
+      res.send("");
+    } else {
+      var IP_list = "";
+      result.forEach(function(value) {
+        IP_list = IP_list + value.IP;
+        if(value.MAX_AXIS == null ||
+           value.CNC_TYPE == null ||
+           value.MT_TYPE == null ||
+           value.SERIES == null ||
+           value.VERSION == null) {
+          IP_list = IP_list + "N";
+        }
+        IP_list = IP_list + ",";
+      });
 
-    var IP_list = "";
-    result.forEach(function(value) {
-      IP_list = IP_list + value.IP;
-      if(value.MAX_AXIS == null ||
-         value.CNC_TYPE == null ||
-         value.MT_TYPE == null ||
-         value.SERIES == null ||
-         value.VERSION == null) {
-        IP_list = IP_list + "N";
-      }
-      IP_list = IP_list + ",";
-    });
-
-    res.send(IP_list);
-
+      res.send(IP_list);
+    }
   });
 
 });
@@ -32,10 +33,11 @@ router.get('/getMachines', function(req,res,next) {
   console.log("localhost:3000/getMachines");
 
   con.query("SELECT * FROM logMachines", function(err,result,fields) {
-    if(err) res.json({dados: []});
-
-    res.json({dados: result});
-
+    if(err) {
+      res.json({dados: []});
+    } else {
+      res.json({dados: result});
+    }
   });
 
 });
