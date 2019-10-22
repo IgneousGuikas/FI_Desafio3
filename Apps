@@ -10,29 +10,17 @@ server{
 
 
 
-	location =/getData/process {
-		proxy_pass http://localhost:3000;
-	}
-	location =/getData/alarms {
-		proxy_pass http://localhost:3000;
-	}
-	location =/getData/activities {
+	location /getData {
 		proxy_pass http://localhost:3000;
 	}
 
 
-
-	location =/getMachines {
-		proxy_pass http://localhost:3000;
-	}
-	location =/getMachines/ID {
+	location /getMachines {
 		proxy_pass http://localhost:3000;
 	}
 
-	location =/updateMachines/add {
-		proxy_pass http://localhost:3000;
-	}
-	location =/updateMachines/del {
+
+	location /updateMachines {
 		proxy_pass http://localhost:3000;
 	}
 }
